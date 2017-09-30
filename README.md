@@ -3,15 +3,16 @@ This is wordpress plugin for appointments
 
 Wuth this plugin client can ask for appoitments among the three date opions
 Requested  appointment will be stored as custom post under the a author to whome the request is made.
-Author will have an mobile app which alerts with notifications
-With help of mobile app author can confirm or reshcedule the  requested appointment
-Author can delegate this mobile app work to his or her secretory
-Major benifit for the clients with app and plugin is things happen in real time
-After reciving the notification author or his secretory may send confirming sms or make phone call to further process the appointment
-Appointement data from the  web site can be interfaced with local software as the data is in json array format
+####    1. Author will have an mobile app which alerts with notifications
+####    2. With help of mobile app author can confirm or reshcedule the  requested appointment
+####    3. Author can delegate this mobile app work to his or her secretory
+####    4. Major benifit for the clients with app and plugin is things happen in real time
+####    5. After reciving the notification author or his secretory may send confirming sms or make phone call to further process the appointment
+
+####    6.Appointement data from the  web site can be interfaced with local software as the data is in json array format
 
 
-##for exmple:-
+For exmple:-
 
 
 
