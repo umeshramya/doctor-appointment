@@ -9,7 +9,12 @@ Author can delegate this mobile app work to his or her secretory
 Major benifit for the clients with app and plugin is things happen in real time
 After reciving the notification author or his secretory may send confirming sms or make phone call to further process the appointment
 Appointement data from the  web site can be interfaced with local software as the data is in json array format
+
+
 ##for exmple:-
+
+
+
                 [
                     {
                         "author"                        :   "Dr Raju Patil",
