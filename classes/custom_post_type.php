@@ -38,8 +38,8 @@ class create_custom_post_type{
 
         $this->args         = array(
                                 "public"            => true,
-                                "show_rest_api"     => true,
                                 'has_archive'       => true,
+
                              );
         
     }
