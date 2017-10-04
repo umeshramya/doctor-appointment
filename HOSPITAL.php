@@ -17,6 +17,9 @@ if(! defined("ABSPATH")){
 }
 
 
+
+
+
 // ===============================================
 // acvtivation and deactivation of plugin
 // =============================================
@@ -59,7 +62,7 @@ function Hospital_load_template($original_template){
                 return get_stylesheet_directory() . "/single-doctorappointment.php";
 
             }else{
-                load_template( plugin_dir_path(__FILE__ ). "/Appointments/templates/form-doctorappointment.php");
+                load_template( plugin_dir_path(__FILE__ ). "/Appointments/templates/doctor_appointment_template.php");
                 // return plugin_dir_path(__FILE__ ). "/Appointments/templates/single-doctorappointment.php";
             }
 

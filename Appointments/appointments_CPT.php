@@ -137,7 +137,7 @@ function DoctorAppointment_meta_save($post_id){
 
     // update DoctorAppointment_message
     if(isset($_POST["DoctorAppointment_message"])){
-        update_post_meta( $post_id, "DoctorAppointment_message",$_POST["DoctorAppointment_message"] );
+        update_post_meta( $post_id, "DoctorAppointment_message", sanitize_text_field($_POST["DoctorAppointment_message"]));
     }
 
 // still have to write code fo
