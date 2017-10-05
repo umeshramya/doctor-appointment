@@ -61,17 +61,70 @@ function DoctorAppointment_enqueue_front_end(){
 
     wp_localize_script( "doctor_appointment_script", "doctor_appointment_object", array(
         'ajax_url'      => admin_url('admin-ajax.php'),
-        'security'      => wp_create_nonce( 'user-submitted-message' )
+        'security'      => wp_create_nonce( 'doctor_appointment_request' ),
+        'success'       => "Your appointment request is sent to concerned. \n You will be contacted very soon.",
+        "fail"       =>  "Your appointment request was NOT successfull. \nKindly retry"
     ));
     }
     
-
+    // ================================
+    // ajax
+    // ================================
     function DoctorAppoinment_process_user_genareted_post(){
+
+        var_dump($_POST['data']);
+        // check for non humans enetering data
+        if(!empty($_POST['submission'])){
+            wp_send_json_error("Honeypot Check Failed");
+        }
+        // check for wp_nonce security
+        if(!check_ajax_referer('doctor_appointment_request', 'security')){
+            wp_send_json_error("Security Nonce Failure");
+        }
+
+        
+        $appointment_request = array(
+            'post_title'        => sprintf('%s-%s-%s', 
+                                            sanitize_text_field($_POST['data']['client_name']) ,
+                                            sanitize_text_field( $_POST['data']['author']),
+                                            esc_attr(current_time('Y-m-d' )) 
+                                            ),
+            // 'post_author'       => $_POST["author"],
+            'post_date'         => esc_attr(current_time('Y-m-d' )),
+            'post_status'       => 'publish',
+            'post_type'         => 'DoctorAppointment'
+
+        );            
+
+        $post_id = wp_insert_post( $appointment_request, true);
+        
+
+        // update DoctorAppointment_name    
+        update_post_meta( $post_id, "DoctorAppointment_name",sanitize_text_field( $_POST['data']["client_name"]) );
+        
+        // update DoctorAppointment_email
+        update_post_meta( $post_id, "DoctorAppointment_email",sanitize_email( $_POST['data']['email']) );
+        
+        // update DoctorAppointment_mobile
+        update_post_meta( $post_id, "DoctorAppointment_mobile",sanitize_text_field( $_POST['data']["mobile"]) );
+        
+        // update_appointment dates
+        update_post_meta( $post_id, "DoctorAppointment_date_1", sanitize_text_field($_POST['data']["date_1"]));
+        update_post_meta( $post_id, "DoctorAppointment_date_2", sanitize_text_field($_POST['data']["date_2"]));
+        update_post_meta( $post_id, "DoctorAppointment_date_3", sanitize_text_field($_POST['data']["date_3"]));
+
+
+        // update DoctorAppointment_message  
+        update_post_meta( $post_id, "DoctorAppointment_message", sanitize_text_field($_POST['data']["message"]));
+        // wp_send_json_success( $post_id );
+        wp_die();
+        
+        
         
     }
 
-    add_action( "wp_ajax_DoctorAppoinment_process_user_generated_post", "DoctorAppoinment_process_user_generated_post" );
-    add_action( "wp_ajax_nopriv_DoctorAppoinment_process_user_generated_post", "DoctorAppoinment_process_user_generated_post" );
+    add_action( "wp_ajax_DoctorAppoinment_process_user_genareted_post", "DoctorAppoinment_process_user_genareted_post" );
+    add_action( "wp_ajax_nopriv_DoctorAppoinment_process_user_genareted_post", "DoctorAppoinment_process_user_genareted_post" );
 
 
 
